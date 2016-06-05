@@ -245,6 +245,7 @@ public class AddSpaceTextWatcher implements TextWatcher {
 	public int getSpaceCount() {
 		return spaceNumberA;
 	}
+
 	/**
 	 * 去掉字符空格，换行符等
 	 *
@@ -252,7 +253,7 @@ public class AddSpaceTextWatcher implements TextWatcher {
 	 * @return
 	 * @see [类、类#方法、类#成员]
 	 */
-	public static String delSpace(String str) {
+	private String delSpace(String str) {
 		if (str != null) {
 			str = str.replaceAll("\r", "");
 			str = str.replaceAll("\n", "");
