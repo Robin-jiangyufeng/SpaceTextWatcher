@@ -2,6 +2,7 @@ package com.robin.lazy.text;
 
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -15,30 +16,20 @@ import android.widget.EditText;
  * @since [产品/模块版本]
  */
 public class AddSpaceTextWatcher implements TextWatcher {
-    /**
-     * text改变之前的长度
-     */
+    /** text改变之前的长度 */
     private int beforeTextLength = 0;
     private int onTextLength = 0;
     private boolean isChanged = false;
     private StringBuffer buffer = new StringBuffer();
-    /**
-     * 改变之前text空格数量
-     */
+    /** 改变之前text空格数量 */
     int spaceNumberA = 0;
     private EditText editText;
-    /**
-     * text最大长度限制
-     */
+    /** text最大长度限制 */
     private int maxLenght;
     private SpaceType spaceType;
-    /**
-     * 记录光标的位置
-     */
+    /** 记录光标的位置 */
     private int location = 0;
-    /**
-     * 是否是主动设置text
-     */
+    /** 是否是主动设置text */
     private boolean isSetText = false;
 
     public AddSpaceTextWatcher(EditText editText, int maxLenght) {
@@ -48,8 +39,8 @@ public class AddSpaceTextWatcher implements TextWatcher {
             new NullPointerException("editText is null");
         }
         spaceType = SpaceType.defaultType;
-        editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(
-                maxLenght)});
+        editText.setFilters(new InputFilter[] { new InputFilter.LengthFilter(
+                maxLenght) });
         editText.addTextChangedListener(this);
     }
 
@@ -215,6 +206,9 @@ public class AddSpaceTextWatcher implements TextWatcher {
      */
     public void setSpaceType(SpaceType spaceType) {
         this.spaceType = spaceType;
+        if (this.spaceType  == SpaceType.IDCardNumberType) {
+            editText.setInputType(InputType.TYPE_CLASS_TEXT);
+        }
     }
 
     /**
@@ -286,7 +280,6 @@ public class AddSpaceTextWatcher implements TextWatcher {
         }
         return str;
     }
-
     /**
      * 空格类型
      *
@@ -296,21 +289,13 @@ public class AddSpaceTextWatcher implements TextWatcher {
      * @since [产品/模块版本]
      */
     public enum SpaceType {
-        /**
-         * 默认类型
-         */
+        /** 默认类型 */
         defaultType,
-        /**
-         * 银行卡类型
-         */
+        /** 银行卡类型 */
         bankCardNumberType,
-        /**
-         * 手机号类型
-         */
+        /** 手机号类型 */
         mobilePhoneNumberType,
-        /**
-         * 身份证类型
-         */
+        /** 身份证类型 */
         IDCardNumberType;
     }
 
